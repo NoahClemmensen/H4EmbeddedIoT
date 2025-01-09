@@ -3,24 +3,18 @@ const router = express.Router();
 
 const mysql = require('mysql2/promise');
 
+const config = {
+  socketPath: process.env.DB_SOCKET,
+  host: process.env.DB_HOST,
+  port: process.env.DB_PORT,
+  user: process.env.DB_USER,
+  password: process.env.DB_PASSWORD,
+  database: process.env.DB_NAME,
+}
+
 let connection;
 (async () => {
-  if (process.env.DB_SOCKET) {
-    connection = await mysql.createConnection({
-      socketPath: process.env.DB_SOCKET,
-      user: process.env.DB_USER,
-      password: process.env.DB_PASSWORD,
-      database: process.env.DB_NAME,
-    });
-  } else {
-    connection = await mysql.createConnection({
-      host: process.env.DB_HOST,
-      port: process.env.DB_PORT,
-      user: process.env.DB_USER,
-      password: process.env.DB_PASSWORD,
-      database: process.env.DB_NAME,
-    });
-  }
+  connection = await mysql.createConnection(config);
 })();
 
 /* GET users listing. */
