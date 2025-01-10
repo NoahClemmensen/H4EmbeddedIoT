@@ -1,20 +1,19 @@
-require('dotenv').config();
-var express = require('express');
-var router = express.Router();
+const express = require('express');
+const router = express.Router();
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
   res.render('index', { title: 'Express' });
 });
 
-router.get('/test', function(req, res, next) {
-  res.json({ message: 'Hello World' });
+router.post('/temperature', function(req, res, next) {
+    console.log(req.body);
+    res.send('Temperature received');
 });
 
-router.get('/secret', function(req, res, next) {
-    res.json({ key: process.env.SECRET_KEY});
+router.post('/humidity', function(req, res, next) {
+    console.log(req.body);
+    res.send('Humidity received');
 });
-
-
 
 module.exports = router;
