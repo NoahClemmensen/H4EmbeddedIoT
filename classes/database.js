@@ -30,6 +30,11 @@ class Database {
         return this.query('SELECT * FROM devices WHERE serial = ?', [sn]);
     }
 
+    static async checkSerial(sn) {
+        const result = await this.query('SELECT * FROM devices WHERE serial = ?', [sn]);
+        return result.length > 0;
+    }
+
     static async getSettings() {
         return this.queryProcedure('get_settings()');
     }

@@ -24,12 +24,12 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+// Bearer token authentication
 function stripBearerToken(token) {
   return token.replace('Bearer ', '');
 }
 
-// Bearer token authentication
-app.use(async function (req, res, next) {
+async function auth(req, res, next) {
   if (!req.headers.authorization) {
     res.status(401).json({error: "Unauthorized"});
     return;
@@ -38,7 +38,7 @@ app.use(async function (req, res, next) {
   const password = await Database.getPassword();
   bcrypt.compare(stripBearerToken(req.headers.authorization), password, function(err, result) {
     if (err) {
-        res.status(500).json({error: err});
+      res.status(500).json({error: err});
     }
 
     if (result) {
@@ -47,7 +47,10 @@ app.use(async function (req, res, next) {
       res.status(401).json({error: "Unauthorized"});
     }
   });
-});
+}
+app.use('/devices', auth);
+app.use('/settings', auth);
+
 
 app.use('/', indexRouter);
 app.use('/devices', devicesRouter);
