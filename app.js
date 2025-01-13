@@ -30,6 +30,11 @@ function stripBearerToken(token) {
 
 // Bearer token authentication
 app.use(async function (req, res, next) {
+  if (!req.headers.authorization) {
+    res.status(401).json({error: "Unauthorized"});
+    return;
+  }
+
   const password = await Database.getPassword();
   bcrypt.compare(stripBearerToken(req.headers.authorization), password, function(err, result) {
     if (err) {
