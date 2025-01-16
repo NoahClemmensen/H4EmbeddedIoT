@@ -1,5 +1,5 @@
 const express = require('express');
-const Database = require("../classes/database");
+const Database = require("../../classes/database");
 const router = express.Router();
 const bcrypt = require('bcrypt');
 

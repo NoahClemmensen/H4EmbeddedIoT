@@ -36,7 +36,8 @@ class Database {
     }
 
     static async getSettings() {
-        return this.queryProcedure('get_settings()');
+        const result = await this.queryProcedure('get_settings()');
+        return result[0][0];
     }
 
     static async saveSettings(settings) {

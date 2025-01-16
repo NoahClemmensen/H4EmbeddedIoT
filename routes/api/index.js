@@ -1,5 +1,5 @@
 const express = require('express');
-const Database = require("../classes/database");
+const Database = require("../../classes/database");
 const router = express.Router();
 
 /* GET home page. */
@@ -14,9 +14,7 @@ router.post('/temperature/:SN', async function(req, res, next) {
     }
 
     try {
-        const result = await Database.checkSerial(req.params.SN);
-
-        if (!result) {
+        if (!await Database.checkSerial(req.params.SN)) {
             res.status(400).send('Device not found');
             return;
         }
@@ -36,15 +34,35 @@ router.post('/humidity/:SN', async function(req, res, next) {
     }
 
     try {
-        const result = await Database.checkSerial(req.params.SN);
-
-        if (!result) {
+        if (!await Database.checkSerial(req.params.SN)) {
             res.status(400).send('Device not found');
             return;
         }
 
         await Database.logHumidity(req.body.humidity, new Date(), req.params.SN);
         res.send('Humidity received');
+    } catch (error) {
+        res.status(500).send('Error getting device');
+    }
+});
+
+router.get('/settings/:SN', async function(req, res, next) {
+    try {
+        if (!await Database.checkSerial(req.params.SN)) {
+            res.status(400).send('Device not found');
+            return;
+        }
+
+        const settings = await Database.getSettings();
+        console.log(settings);
+        res.json({
+            max_temp: settings.max_temp,
+            min_temp: settings.min_temp,
+            max_humidity: settings.max_humidity,
+            min_humidity: settings.min_humidity,
+            temp_interval: settings.temp_interval,
+            humidity_interval: settings.humidity_interval
+        });
     } catch (error) {
         res.status(500).send('Error getting device');
     }

@@ -7,9 +7,9 @@ const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 const Database = require('./classes/database');
 
-const indexRouter = require('./routes/index');
-const devicesRouter = require('./routes/devices');
-const settingsRouter = require('./routes/settings');
+const indexRouter = require('./routes/api');
+const devicesRouter = require('./routes/manage/devices');
+const settingsRouter = require('./routes/manage/settings');
 const bcrypt = require('bcrypt');
 
 const app = express();
@@ -48,13 +48,12 @@ async function auth(req, res, next) {
     }
   });
 }
-app.use('/devices', auth);
-app.use('/settings', auth);
+app.use('/manage', auth);
 
 
-app.use('/', indexRouter);
-app.use('/devices', devicesRouter);
-app.use('/settings', settingsRouter);
+app.use('/api', indexRouter);
+app.use('/manage/devices', devicesRouter);
+app.use('/manage/settings', settingsRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

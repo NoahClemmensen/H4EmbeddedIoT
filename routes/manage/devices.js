@@ -1,5 +1,5 @@
 var express = require('express');
-const Database = require("../classes/database");
+const Database = require("../../classes/database");
 var router = express.Router();
 
 router.get('/', async function(req, res, next) {
