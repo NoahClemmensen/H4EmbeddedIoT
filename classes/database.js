@@ -41,11 +41,15 @@ class Database {
     }
 
     static async saveSettings(settings) {
-        return this.queryProcedure('change_settings(?,?,?,?,?,?,?,?,?)', [settings.max_temp, settings.min_temp, settings.max_fugt, settings.min_fugt, settings.temp_interval, settings.fugt_interval, settings.start_time, settings.end_time, settings.password]);
+        return this.queryProcedure('change_settings(?,?,?,?,?,?,?,?,?,?)', [settings.max_temp, settings.min_temp, settings.max_fugt, settings.min_fugt, settings.temp_interval, settings.fugt_interval, settings.start_time, settings.end_time, settings.password, settings.max_sound]);
     }
 
     static async logTemp(temperature, time, deviceSN) {
         return this.queryProcedure('log_temp(?,?,?)', [temperature, new Date(time), deviceSN]);
+    }
+
+    static async logSound(sound, time, deviceSN) {
+        return this.queryProcedure('log_sound(?,?,?)', [sound, new Date(time), deviceSN]);
     }
 
     static async logHumidity(humidity, time, deviceSN) {

@@ -16,6 +16,7 @@ router.post('/save', async function(req, res, next) {
             min_fugt: req.body.min_fugt,
             temp_interval: req.body.temp_interval,
             fugt_interval: req.body.fugt_interval,
+            max_sound: req.body.max_sound,
             start_time: req.body.start_time,
             end_time: req.body.end_time,
             password: await bcrypt.hashSync(req.body.password, 10)
