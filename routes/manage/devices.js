@@ -8,7 +8,7 @@ router.get('/', async function(req, res, next) {
 
 router.get('/:serial', async function(req, res, next) {
     try {
-        if (!await Database.checkSerial(req.params.SN)) {
+        if (!await Database.checkSerial(req.params.serial)) {
             res.status(400).send('Device not found');
             return;
         }
