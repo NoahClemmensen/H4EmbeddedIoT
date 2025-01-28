@@ -7,7 +7,8 @@ const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 const Database = require('./classes/database');
 
-const indexRouter = require('./routes/api');
+const indexRouter = require('./routes/index');
+const dataRouter = require('./routes/api/data');
 const devicesRouter = require('./routes/manage/devices');
 const settingsRouter = require('./routes/manage/settings');
 const bcrypt = require('bcrypt');
@@ -50,8 +51,8 @@ async function auth(req, res, next) {
 }
 app.use('/manage', auth);
 
-
-app.use('/api', indexRouter);
+app.use('/', indexRouter);
+app.use('/api', dataRouter);
 app.use('/manage/devices', devicesRouter);
 app.use('/manage/settings', settingsRouter);
 

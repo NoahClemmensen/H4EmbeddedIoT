@@ -2,11 +2,6 @@ const express = require('express');
 const Database = require("../../classes/database");
 const router = express.Router();
 
-/* GET home page. */
-router.get('/', function(req, res, next) {
-  res.render('index', { title: 'Express' });
-});
-
 router.post('/temperature/:SN', async function(req, res, next) {
     if (!req.body.temperature) {
         res.status(400).send('Temperature not received');
