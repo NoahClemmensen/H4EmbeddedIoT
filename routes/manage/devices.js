@@ -7,7 +7,15 @@ router.get('/', async function(req, res, next) {
 });
 
 router.get('/:serial', async function(req, res, next) {
-    res.json(await Database.getDeviceBySerial(req.params.serial));
+    try {
+        if (!await Database.checkSerial(req.params.SN)) {
+            res.status(400).send('Device not found');
+            return;
+        }
+        res.json(await Database.getDeviceBySerial(req.params.serial));
+    } catch (error) {
+        res.status(500).json({"message": error});
+    }
 });
 
 module.exports = router;
