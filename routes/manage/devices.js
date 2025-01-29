@@ -1,5 +1,6 @@
 var express = require('express');
 const Database = require("../../classes/database");
+const {response} = require("express");
 var router = express.Router();
 
 router.get('/', async function(req, res, next) {
@@ -35,7 +36,10 @@ router.post('/create', async function(req, res, next) {
             return;
         }
 
-        res.json(await Database.createDevice(serial, location, name, desc));
+        const result = await Database.createDevice(serial, location, name, desc);
+        if (result.affectedRows >= 1) {
+            res.status(200).send('Device created');
+        }
     } catch (error) {
         res.status(500).json({"message": error});
     }
@@ -58,7 +62,10 @@ router.post('/edit', async function(req, res, next) {
             return;
         }
 
-        res.json(await Database.editDevice(req.body.serial, req.body.location, req.body.name, req.body.desc));
+        const result = await Database.editDevice(serial, location, name, desc);
+        if (result.affectedRows >= 1) {
+            res.status(200).send('Device edited');
+        }
     } catch (error) {
         res.status(500).json({"message": error});
     }
@@ -72,8 +79,10 @@ router.post('/delete/:SN', async function(req, res, next) {
             res.status(400).send('Device not found');
             return;
         }
-
-        res.json(await Database.deleteDevice(serial));
+        const result = await Database.deleteDevice(serial);
+        if (result.affectedRows >= 1) {
+            res.status(200).send('Device deleted');
+        }
     } catch (error) {
         res.status(500).json({"message": error});
     }
