@@ -9,6 +9,7 @@ const Database = require('./classes/database');
 
 const indexRouter = require('./routes/index');
 const loginRouter = require('./routes/login');
+const settingsPageRouter = require('./routes/settings');
 const dataRouter = require('./routes/api/data');
 const devicesRouter = require('./routes/manage/devices');
 const settingsRouter = require('./routes/manage/settings');
@@ -76,9 +77,11 @@ async function cookieAuth(req, res, next) {
 
 app.use('/manage', auth);
 app.get('/', cookieAuth, indexRouter);
+app.get('/settings', auth);
 
 app.use('/', indexRouter);
 app.use('/login', loginRouter);
+app.use('/settings', settingsPageRouter);
 app.use('/api', dataRouter);
 app.use('/manage/devices', devicesRouter);
 app.use('/manage/settings', settingsRouter);

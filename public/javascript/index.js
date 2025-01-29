@@ -116,6 +116,36 @@ $( document ).ready(function() {
             $(this).find('.error-message').text(err.responseText);
         });
     });
+
+    $('#settingsForm').on('submit', function(e) {
+        e.preventDefault();
+
+        if (!this.checkValidity()) {
+            $(this).find('.error-message').text("Please fill out all fields");
+        } else {
+            const data = {
+                max_temp: $('#max_temp').val(),
+                min_temp: $('#min_temp').val(),
+                max_fugt: $('#max_humidity').val(),
+                min_fugt: $('#min_humidity').val(),
+                temp_interval: $('#temp_interval').val(),
+                fugt_interval: $('#humidity_interval').val(),
+                start_time: $('#start_time').val(),
+                end_time: $('#end_time').val(),
+                password: $('#password').val(),
+                max_sound: $('#max_sound').val(),
+                fahrenheit: $('#fahrenheit').is(':checked') ? 1 : 0
+            }
+
+            $.post('/manage/settings/save', data, function() {
+                window.location.reload();
+            }).fail(function(err) {
+                console.log("FAILED: ", err.responseText);
+                console.log($('#newDevice').find('.error-message'))
+                $('#newDevice').find('.error-message').text(err.responseText);
+            });
+        }
+    });
 });
 
 function launchDeleteReceiverModal(receiverId) {

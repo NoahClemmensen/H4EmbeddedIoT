@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html data-bs-theme="dark">
+<%- include('head'); %>
+  <body>
+  <a class="btn btn-outline-primary mb-5" href="/">Back</a>
+
+  <!-- Settings: max_temp, min_temp, max_humidity, min_humidity, temp_interval (seconds) humidity_interval, start_time, end_time (timess are for when sound sensors should log, usually at night), password, max_sound, fahrenheit (Boolean toggle to see data logs in fahrenheit over celsius) -->
+  <form id="settingsForm">
+    <div class="mb-3">
+      <label for="max_temp" class="form-label">Max temperature</label>
+      <input type="number" class="form-control" required id="max_temp" placeholder="E.g Gaia 300" value="<%- settings.max_temp %>">
+    </div>
+    <div class="mb-3">
+      <label for="min_temp" class="form-label">Min temperature</label>
+      <input type="text" class="form-control" required id="min_temp" placeholder="E.g Gaia 300" value="<%- settings.min_temp %>">
+    </div>
+    <div class="mb-3">
+      <label for="max_humidity" class="form-label">Max humidity</label>
+      <input type="text" class="form-control" required id="max_humidity" placeholder="E.g Gaia 300" value="<%- settings.max_humidity %>">
+    </div>
+    <div class="mb-3">
+      <label for="min_humidity" class="form-label">Min humidity</label>
+      <input type="text" class="form-control" required id="min_humidity" placeholder="E.g Gaia 300" value="<%- settings.min_humidity %>">
+    </div>
+    <div class="mb-3">
+      <label for="temp_interval" class="form-label">Temperature interval</label>
+      <input type="number" class="form-control" required id="temp_interval" placeholder="E.g Gaia 300" value="<%- settings.temp_interval %>">
+    </div>
+    <div class="mb-3">
+      <label for="humidity_interval" class="form-label">Humidity interval</label>
+      <input type="number" class="form-control" required id="humidity_interval" placeholder="E.g Gaia 300" value="<%- settings.humidity_interval %>">
+    </div>
+    <div class="mb-3">
+      <label for="start_time" class="form-label">Start time</label>
+      <input type="datetime-local" class="form-control" required id="start_time" value="<%- settings.start_time %>">
+    </div>
+    <div class="mb-3">
+      <label for="end_time" class="form-label">End time</label>
+      <input type="datetime-local" class="form-control" required id="end_time" value="<%- settings.end_time %>">
+    </div>
+    <div class="mb-3">
+      <label for="password" class="form-label">Password</label>
+      <input type="password" class="form-control" required id="password" placeholder="E.g Gaia 300">
+    </div>
+    <div class="mb-3">
+      <label for="max_sound" class="form-label">Max sound</label>
+      <input type="number" class="form-control" required id="max_sound" placeholder="E.g Gaia 300" value="<%- settings.max_sound %>">
+    </div>
+    <div class="form-check form-switch">
+      <input class="form-check-input" type="checkbox" id="fahrenheit" <%- settings.fahrenheit ? 'checked' : '' %>>
+      <label class="form-check-label" for="fahrenheit">Fahrenheit</label>
+    </div>
+    <button type="submit" class="btn btn-primary mt-3">Save</button>
+  </form>
+
+  <%- include('scripts'); %>
+  </body>
+</html>

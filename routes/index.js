@@ -12,13 +12,17 @@ router.get('/', async function(req, res, next) {
     for (const device of devices) {
         let climateInfo = await Database.getClimateData(device.serial);
         climateInfo = climateInfo[0][0];
-        device.temperature = climateInfo.temp;
+        try {
+            device.temperature = climateInfo.temp;
+            device.humidity = climateInfo.humidity;
+        } catch(err) {
+            device.temperature = undefined;
+            device.humidity = undefined;
+        }
 
         if (settings.fahrenheit) {
             device.temperature = (device.temperature * 9/5) + 32;
         }
-
-        device.humidity = climateInfo.humidity;
     }
 
     for (const alarm of alarms) {
