@@ -2,19 +2,19 @@
     <h1>Devices</h1>
 
     <button type="button"
-            class="btn btn-outline-success"
+            class="btn btn-success"
             style="width: fit-content"
             data-bs-toggle="modal"
             data-bs-target="#newDeviceModal">
-        +
+        + Add sensor
     </button>
 
-    <div class="d-flex flex-column">
+    <div class="d-flex flex-wrap" style="gap: 16px">
         <% if (devices.length === 0) { %>
             <h4>No devices</h4>
         <% } else { %>
             <% devices.forEach(function(device){ %>
-                <%- include('device/card'); %>
+                <%- include('card', { device: device }); %>
             <% }); %>
         <% } %>
     </div>

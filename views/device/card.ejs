@@ -1,1 +1,18 @@
-<p>Hi</p>
+<div class="card" style="width: fit-content;">
+    <div class="card-body d-flex flex-column">
+        <div class="d-flex flex-column mb-auto">
+            <div class="d-flex align-items-center">
+                <h5 class="card-title me-auto mb-0"><%- device.name %></h5>
+                <span class="ms-auto"><%- device.serial %></span>
+            </div>
+
+            <h6 class="card-subtitle mb-2 text-body-secondary"><%- device.location %></h6>
+            <p class="card-text"><%- device.description %></p>
+        </div>
+        <div class="mt-auto d-flex align-content-between w-100">
+            <a href="#" class="card-link">Details</a>
+            <a href="#" class="card-link">Edit</a>
+            <a href="#" class="card-link">Delete</a>
+        </div>
+    </div>
+</div>

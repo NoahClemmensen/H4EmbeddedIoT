@@ -23,7 +23,7 @@ let selectConn = mysql.createConnection(selectConf);
 
 class Database {
     static async getDevices() {
-        return this.query('SELECT * FROM devices');
+        return this.query('SELECT * FROM devices where deleted = 0');
     }
 
     static async getDeviceBySerial(sn) {
