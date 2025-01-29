@@ -1,0 +1,79 @@
+<div class="d-flex flex-column" style="gap: 32px">
+    <h1>Receivers</h1>
+    <button type="button"
+            class="btn btn-success"
+            style="width: fit-content"
+            data-bs-toggle="modal"
+            data-bs-target="#newReceiverModal">
+        + Add receiver
+    </button>
+
+    <table class="table">
+        <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Email</th>
+            <th scope="col">Phone</th>
+            <th scope="col"></th>
+        </tr>
+        </thead>
+        <tbody>
+        <% receivers.forEach(function(receiver, index){ %>
+            <tr>
+                <th scope="row"><%- index + 1 %></th>
+                <td><%- receiver.email %></td>
+                <td><%- receiver.phone %></td>
+                <td>
+                    <button type="button" class="btn btn-danger" onclick="launchDeleteReceiverModal('<%- receiver.id %>')">Delete</button>
+                </td>
+            </tr>
+        <% }); %>
+        </tbody>
+    </table>
+</div>
+
+<!-- Modals -->
+<form id="newReceiver">
+    <div class="modal fade" id="newReceiverModal" tabindex="-1" aria-labelledby="newReceiverModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="newReceiverModalLabel">Add receiver</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label for="newEmail" class="form-label">Email</label>
+                        <input type="email" class="form-control" id="newEmail" placeholder="E.g email@domain.com">
+                    </div>
+                    <div class="mb-3">
+                        <label for="newPhone" class="form-label">Phone</label>
+                        <input type="text" class="form-control" id="newPhone" placeholder="E.g +4545991572">
+                    </div>
+                </div>
+                <div class="modal-footer d-flex justify-content-start">
+                    <span class="me-auto error-message" style="color: var(--bs-danger);"></span>
+                    <button type="button" class="btn btn-secondary ms-auto" data-bs-dismiss="modal">Cancel</button>
+                    <button type="submit" class="btn btn-primary">Add</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+
+<form id="deleteReceiver">
+    <div class="modal fade" id="deleteReceiverModal" tabindex="-1" aria-labelledby="deleteReceiverModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="deleteReceiverModalLabel">Delete receiver</h1>
+                </div>
+                <div class="modal-footer d-flex justify-content-start">
+                    <span class="me-auto error-message" style="color: var(--bs-danger);"></span>
+                    <button type="button" class="btn btn-secondary ms-auto" data-bs-dismiss="modal">Cancel</button>
+                    <button type="submit" class="btn btn-danger">Delete</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

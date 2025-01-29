@@ -26,6 +26,22 @@ class Database {
         return this.query('SELECT * FROM devices where deleted = 0');
     }
 
+    static async getRelevantAlarms() {
+        return this.query('select * from alarm where timestamp >= date_sub(now(), interval 1 day);');
+    }
+
+    static async getReceivers() {
+        return this.query('SELECT * FROM alarm_receiver where active = 1');
+    }
+
+    static async createReceiver(email, phone) {
+        return this.queryProcedure('create_alarm_receiver(?,?)', [email, phone]);
+    }
+
+    static async deleteReceiver(id) {
+        return this.queryProcedure('delete_alarm_receiver(?)', [id]);
+    }
+
     static async getDeviceBySerial(sn) {
         return this.query('SELECT * FROM devices WHERE serial = ?', [sn]);
     }
@@ -35,13 +51,18 @@ class Database {
         return result.length > 0;
     }
 
+    static async checkReceiver(id) {
+        const result = await this.query('SELECT * FROM alarm_receiver WHERE id = ? and active = 1', [id]);
+        return result.length > 0;
+    }
+
     static async getSettings() {
         const result = await this.queryProcedure('get_settings()');
         return result[0][0];
     }
 
     static async saveSettings(settings) {
-        return this.queryProcedure('change_settings(?,?,?,?,?,?,?,?,?,?)', [settings.max_temp, settings.min_temp, settings.max_fugt, settings.min_fugt, settings.temp_interval, settings.fugt_interval, settings.start_time, settings.end_time, settings.password, settings.max_sound]);
+        return this.queryProcedure('change_settings(?,?,?,?,?,?,?,?,?,?,?)', [settings.max_temp, settings.min_temp, settings.max_fugt, settings.min_fugt, settings.temp_interval, settings.fugt_interval, settings.start_time, settings.end_time, settings.password, settings.max_sound, settings.fahrenheit]);
     }
 
     static async logTemp(temperature, time, deviceSN) {

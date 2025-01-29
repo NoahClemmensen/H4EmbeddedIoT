@@ -1,1 +1,17 @@
-<h1>Alarms</h1>
+<div class="d-flex flex-column" style="gap: 32px">
+    <h1>Alarms</h1>
+    <div class="d-flex flex-column" style="gap: 16px;">
+        <% alarms.forEach(function(alarm){ %>
+            <div class="alert alert-warning" role="alert">
+                <h4 class="alert-heading">Warning</h4>
+                <p>
+                    Readings are <%- alarm.temp %> <%- settings.fahrenheit ? 'F°' : 'C°' %> <%- alarm.humidity %>%
+                    <br>
+                    <u><%- alarm.device.name %> (<%- alarm.device.serial %>)</u>
+                </p>
+                <hr>
+                <p class="mb-0">Time reported: <%- alarm.timestamp %></p>
+            </div>
+        <% }); %>
+    </div>
+</div>

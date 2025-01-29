@@ -2,11 +2,11 @@
 <html data-bs-theme="dark">
 <%- include('head'); %>
   <body>
-  <%- include('device/devices', { devices: devices }); %>
+  <%- include('device/devices', { devices: devices, settings: settings }); %>
   <hr>
-  <%- include('alarms'); %>
+  <%- include('alarms', { alarms: alarms }); %>
   <hr>
-  <%- include('data'); %>
+  <%- include('receivers', { receivers: receivers, settings: settings }); %>
 
   <%- include('scripts'); %>
   </body>

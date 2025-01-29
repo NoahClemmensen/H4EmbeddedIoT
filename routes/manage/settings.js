@@ -19,7 +19,8 @@ router.post('/save', async function(req, res, next) {
             max_sound: req.body.max_sound,
             start_time: req.body.start_time,
             end_time: req.body.end_time,
-            password: await bcrypt.hashSync(req.body.password, 10)
+            password: await bcrypt.hashSync(req.body.password, 10),
+            fahrenheit: req.body.fahrenheit
         }
 
         await Database.saveSettings(settings);

@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html data-bs-theme="dark">
+<%- include('head'); %>
+<body>
+<div class="d-flex align-items-center justify-content-center">
+    <div class="w-25 mt-5">
+        <form id="login">
+            <h3>Login</h3>
+            <div class="mb-3">
+                <label for="password" class="form-label">Password</label>
+                <input type="password" class="form-control" id="password">
+                <div class="invalid-feedback">
+                    Invalid password
+                </div>
+            </div>
+            <button type="submit" class="btn btn-primary btn-sm">
+                Login
+            </button>
+        </form>
+    </div>
+</div>
+
+
+
+<%- include('scripts'); %>
+</body>
+</html>
